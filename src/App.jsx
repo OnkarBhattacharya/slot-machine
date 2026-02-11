@@ -315,8 +315,9 @@ function App() {
   return (
     <div className="App">
       <div id="a11y-announcer" role="status" aria-live="polite" aria-atomic="true" style={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}></div>
-      <header>
+      <header className="app-header">
         <h1>🎰 Slot Machine</h1>
+        <div className="title-block">
         <div className="stats">
           <div className="coins">
             💰 {coins} Coins
@@ -328,7 +329,8 @@ function App() {
           </div>
           <div className="jackpot">💎 Jackpot: {jackpot}</div>
         </div>
-        <div className="menu-buttons">
+        </div>
+        <nav className="menu-buttons" aria-label="Game panels">
           <Tooltip feature="shop" message="Buy coins and boosters here!" position="bottom">
             <button onClick={() => setShowShop(true)} aria-label="Shop">🛒</button>
           </Tooltip>
@@ -347,7 +349,7 @@ function App() {
             <button onClick={handlePrestige} aria-label="Prestige" className="prestige-btn">⭐</button>
           )}
           <button onClick={() => setShowSettings(true)} aria-label="Settings">⚙️</button>
-        </div>
+        </nav>
       </header>
       <LevelDisplay level={level} xp={xp} xpForNext={LevelService.xpForLevel(level)} />
       <EventBanner />

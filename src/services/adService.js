@@ -1,5 +1,6 @@
 export const AdService = {
   initialized: false,
+  spinCount: 0,
 
   initialize: async () => {
     try {
@@ -57,6 +58,40 @@ export const AdService = {
       });
     } catch (error) {
       console.error('Banner ad error:', error);
+    }
+  },
+
+  hideBannerAd: async () => {
+    try {
+      if (!window.Capacitor) return;
+
+      const { AdMob } = await import('@capacitor-community/admob');
+      await AdMob.hideBanner();
+    } catch (error) {
+      console.error('Hide banner ad error:', error);
+    }
+  },
+
+  shouldShowInterstitial: () => {
+    AdService.spinCount += 1;
+    // Show roughly every 7 spins for non-VIP users.
+    return AdService.spinCount % 7 === 0;
+  },
+
+  showInterstitialAd: async () => {
+    try {
+      if (!window.Capacitor) return true;
+
+      const { AdMob } = await import('@capacitor-community/admob');
+      await AdMob.prepareInterstitial({
+        adId: 'ca-app-pub-3940256099942544/1033173712', // Test ID
+        isTesting: true
+      });
+      await AdMob.showInterstitial();
+      return true;
+    } catch (error) {
+      console.error('Interstitial ad error:', error);
+      return false;
     }
   }
 };
