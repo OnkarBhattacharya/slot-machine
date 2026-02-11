@@ -1,0 +1,127 @@
+.social-modal {
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.tabs {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #333;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #666;
+  transition: all 0.3s;
+}
+
+.tabs button.active {
+  color: #ffd700;
+  border-bottom: 3px solid #ffd700;
+}
+
+.tab-content {
+  padding: 20px 0;
+}
+
+.empty {
+  text-align: center;
+  color: #666;
+  padding: 40px 20px;
+}
+
+.friends-list, .gifts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.friend-item, .gift-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+  border-radius: 10px;
+  border: 1px solid #333;
+}
+
+.friend-item button, .gift-item button {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #000;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.share-buttons button {
+  flex: 1;
+  padding: 15px;
+  font-size: 16px;
+  background: linear-gradient(135deg, #4a90e2, #357abd);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+}
+
+.invite-section, .redeem-section {
+  margin: 20px 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+  border-radius: 10px;
+}
+
+.code-display {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+  background: #000;
+  border-radius: 10px;
+  margin: 15px 0;
+  letter-spacing: 5px;
+  color: #ffd700;
+}
+
+.redeem-section input {
+  width: 100%;
+  padding: 12px;
+  font-size: 18px;
+  text-align: center;
+  border: 2px solid #333;
+  border-radius: 5px;
+  background: #000;
+  color: #fff;
+  margin: 10px 0;
+  text-transform: uppercase;
+}
+
+.invite-section button, .redeem-section button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  color: #000;
+  margin-top: 10px;
+}

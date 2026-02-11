@@ -1,0 +1,157 @@
+.tournament-modal {
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.empty .hint {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.tournaments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px 0;
+}
+
+.tournament-card {
+  background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+  border: 2px solid #ffd700;
+  border-radius: 15px;
+  padding: 20px;
+  transition: transform 0.3s;
+}
+
+.tournament-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+}
+
+.tournament-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.tournament-header h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #ffd700;
+}
+
+.entry-fee {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #000;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.tournament-details {
+  margin: 15px 0;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.tournament-details p {
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.tournament-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.tournament-actions button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+.tournament-actions button:first-child {
+  background: linear-gradient(135deg, #4caf50, #45a049);
+  color: white;
+}
+
+.tournament-actions button:last-child {
+  background: linear-gradient(135deg, #2196f3, #1976d2);
+  color: white;
+}
+
+.tournament-info {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.tournament-info p {
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+  border-radius: 10px;
+  border: 1px solid #333;
+}
+
+.leaderboard-item.rank-1 {
+  border-color: #ffd700;
+  background: linear-gradient(135deg, #3a3a00, #2a2a00);
+}
+
+.leaderboard-item.rank-2 {
+  border-color: #c0c0c0;
+}
+
+.leaderboard-item.rank-3 {
+  border-color: #cd7f32;
+}
+
+.leaderboard-item .rank {
+  font-size: 24px;
+  font-weight: bold;
+  min-width: 40px;
+  text-align: center;
+  color: #ffd700;
+}
+
+.leaderboard-item .player {
+  flex: 1;
+  font-size: 16px;
+}
+
+.leaderboard-item .score {
+  font-size: 18px;
+  font-weight: bold;
+  color: #4caf50;
+}

@@ -1,0 +1,91 @@
+.achievements-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.achievements-content {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.achievements-content h2 {
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.achievement {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.achievement.unlocked {
+  background: rgba(255, 215, 0, 0.2);
+  border: 2px solid #ffd700;
+}
+
+.achievement.locked {
+  opacity: 0.5;
+  filter: grayscale(100%);
+}
+
+.ach-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.ach-name {
+  color: white;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.ach-desc {
+  color: #ccc;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.ach-reward {
+  color: #ffd700;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.close-btn {
+  width: 100%;
+  padding: 12px;
+  background: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background: #cc0000;
+}

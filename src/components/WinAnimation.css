@@ -1,0 +1,36 @@
+.win-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  top: -20px;
+  font-size: 2em;
+  animation: fall 2s ease-in forwards;
+}
+
+.jackpot .particle {
+  font-size: 3em;
+  animation: fall-spin 2s ease-in forwards;
+}
+
+@keyframes fall {
+  to {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes fall-spin {
+  to {
+    top: 100%;
+    opacity: 0;
+    transform: rotate(360deg);
+  }
+}

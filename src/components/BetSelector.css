@@ -1,0 +1,65 @@
+.bet-selector {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.bet-selector label {
+  display: block;
+  color: white;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.bet-options {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.bet-option {
+  background: rgba(255, 255, 255, 0.9);
+  border: 3px solid transparent;
+  border-radius: 12px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-width: 80px;
+}
+
+.bet-option:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.bet-option.active {
+  border-color: #f5576c;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.bet-option:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.bet-amount {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.bet-label {
+  font-size: 0.8em;
+  margin: 3px 0;
+}
+
+.bet-multiplier {
+  font-size: 0.9em;
+  color: #667eea;
+  font-weight: bold;
+}
+
+.bet-option.active .bet-multiplier {
+  color: #ffd700;
+}

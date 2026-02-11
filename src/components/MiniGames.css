@@ -1,0 +1,135 @@
+.mini-games {
+  max-width: 600px;
+}
+
+.plays-left {
+  text-align: center;
+  color: #ffd700;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.games-menu {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.games-menu button {
+  padding: 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.games-menu button:hover {
+  transform: scale(1.05);
+}
+
+.scratch-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.scratch-panel {
+  aspect-ratio: 1;
+  background: silver;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.scratch-panel.scratched {
+  background: gold;
+  transform: rotateY(180deg);
+}
+
+.coin-choices {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.coin-choices button {
+  padding: 30px;
+  font-size: 40px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.coin-choices button:hover {
+  transform: scale(1.1);
+}
+
+.coin-animation {
+  font-size: 80px;
+  animation: flip 1s;
+  margin: 20px 0;
+}
+
+@keyframes flip {
+  0%, 100% { transform: rotateY(0); }
+  50% { transform: rotateY(180deg); }
+}
+
+.wheel {
+  font-size: 100px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.wheel.spinning {
+  animation: spin 3s linear;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(1440deg); }
+}
+
+.wheel-result {
+  font-size: 24px;
+  color: #4CAF50;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.dealer-card {
+  font-size: 48px;
+  text-align: center;
+  margin: 20px 0;
+  padding: 20px;
+  background: #333;
+  border-radius: 10px;
+}
+
+.card-choices {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.card-choices button {
+  padding: 20px 40px;
+  font-size: 24px;
+  border: none;
+  border-radius: 10px;
+  background: #4CAF50;
+  color: white;
+  cursor: pointer;
+}

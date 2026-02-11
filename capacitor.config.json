@@ -1,0 +1,12 @@
+{
+  "appId": "com.slotmachine.app",
+  "appName": "Slot Machine",
+  "webDir": "build",
+  "bundledWebRuntime": false,
+  "plugins": {
+    "AdMob": {
+      "appId": "YOUR_ADMOB_APP_ID",
+      "testingDevices": ["YOUR_TEST_DEVICE_ID"]
+    }
+  }
+}

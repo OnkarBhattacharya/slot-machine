@@ -1,0 +1,243 @@
+.battlepass-modal {
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.battlepass-header {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #ffd700;
+}
+
+.battlepass-header h2 {
+  margin: 0 0 10px 0;
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.season-theme {
+  font-size: 1.2em;
+  color: #fff;
+  margin: 5px 0;
+}
+
+.season-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #aaa;
+}
+
+.time-remaining {
+  color: #ff6b6b;
+}
+
+.xp-bar-container {
+  margin: 20px 0;
+}
+
+.xp-bar {
+  width: 100%;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  overflow: hidden;
+  border: 2px solid #ffd700;
+}
+
+.xp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffd700, #ffed4e);
+  transition: width 0.5s ease;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+}
+
+.xp-text {
+  display: block;
+  text-align: center;
+  margin-top: 5px;
+  color: #ffd700;
+  font-weight: bold;
+}
+
+.premium-banner {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 20px 0;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.premium-banner h3 {
+  margin: 0 0 10px 0;
+  color: #fff;
+}
+
+.premium-banner p {
+  margin: 0 0 15px 0;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.premium-btn {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #000;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.premium-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+}
+
+.tiers-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.tier {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 15px;
+  border: 2px solid transparent;
+  transition: all 0.3s;
+}
+
+.tier.unlocked {
+  border-color: #ffd700;
+  background: rgba(255, 215, 0, 0.1);
+}
+
+.tier.locked {
+  opacity: 0.6;
+}
+
+.tier-level {
+  min-width: 60px;
+  text-align: center;
+  margin-right: 20px;
+}
+
+.level-number {
+  display: block;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #ffd700;
+}
+
+.unlock-icon {
+  display: block;
+  color: #4caf50;
+  font-size: 1.2em;
+  margin-top: 5px;
+}
+
+.tier-rewards {
+  display: flex;
+  gap: 15px;
+  flex: 1;
+}
+
+.reward {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 12px;
+  position: relative;
+}
+
+.reward.premium-reward {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+  border: 1px solid rgba(102, 126, 234, 0.5);
+}
+
+.reward.premium-reward.locked {
+  opacity: 0.5;
+  filter: grayscale(1);
+}
+
+.reward-label {
+  font-size: 0.8em;
+  color: #aaa;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.reward-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.reward-item {
+  font-size: 0.9em;
+  color: #fff;
+}
+
+.claim-btn {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.claim-btn:hover {
+  background: #45a049;
+  transform: scale(1.05);
+}
+
+.claim-btn.premium {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.claim-btn.premium:hover {
+  background: linear-gradient(135deg, #5568d3, #6a3f8f);
+}
+
+.claimed-badge {
+  color: #4caf50;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+.locked-badge {
+  color: #999;
+  font-size: 1.2em;
+}
+
+.battlepass-footer {
+  text-align: center;
+  padding: 20px;
+  color: #aaa;
+  font-size: 0.9em;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .tier-rewards {
+    flex-direction: column;
+  }
+  
+  .battlepass-modal {
+    max-width: 95%;
+  }
+}

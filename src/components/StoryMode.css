@@ -1,0 +1,152 @@
+.story-mode {
+  max-width: 700px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.levels-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.level-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 15px;
+  padding: 20px;
+  transition: transform 0.3s;
+}
+
+.level-card:hover {
+  transform: translateY(-3px);
+}
+
+.level-card.locked {
+  background: #555;
+  opacity: 0.6;
+}
+
+.level-card.completed {
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+}
+
+.level-card h3 {
+  margin: 0 0 15px 0;
+  font-size: 20px;
+}
+
+.boss-info {
+  margin: 15px 0;
+}
+
+.boss-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.boss-hp {
+  color: #ffeb3b;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.hp-bar {
+  width: 100%;
+  height: 20px;
+  background: #333;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.hp-bar.large {
+  height: 30px;
+}
+
+.hp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff4444, #ff6666);
+  transition: width 0.5s;
+}
+
+.level-reward {
+  color: #ffd700;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.unlock-bonus {
+  color: #90EE90;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.level-card button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: #4CAF50;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.completed-badge {
+  color: #90EE90;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.locked-badge {
+  color: #ffeb3b;
+  margin-top: 10px;
+}
+
+.battle-screen {
+  text-align: center;
+  padding: 20px;
+}
+
+.boss-battle {
+  margin: 30px 0;
+}
+
+.boss-avatar {
+  font-size: 100px;
+  margin: 20px 0;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.battle-info {
+  color: #ffeb3b;
+  font-size: 16px;
+  margin: 20px 0;
+}
+
+.battle-screen button {
+  margin: 10px;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.battle-screen button:first-of-type {
+  background: #4CAF50;
+  color: white;
+}
+
+.battle-screen button:last-of-type {
+  background: #f44336;
+  color: white;
+}

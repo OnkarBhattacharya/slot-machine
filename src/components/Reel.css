@@ -1,0 +1,37 @@
+.reel {
+  width: 100px;
+  height: 120px;
+  background: linear-gradient(145deg, #667eea 0%, #764ba2 100%);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  border: 3px solid #fff;
+  transition: all 0.3s;
+}
+
+.reel.spinning {
+  animation: spin 0.1s linear infinite;
+}
+
+.reel.winning {
+  border-color: #ffd700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+  animation: glow-border 0.5s infinite alternate;
+}
+
+.symbol {
+  font-size: 4em;
+  user-select: none;
+}
+
+@keyframes spin {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
+}
+
+@keyframes glow-border {
+  from { box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+  to { box-shadow: 0 0 30px rgba(255, 215, 0, 1); }
+}
