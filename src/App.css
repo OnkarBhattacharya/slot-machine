@@ -1,9 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Sora:wght@500;700&display=swap');
+
 :root {
-  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --secondary-color: #ffd700;
-  --accent-color: #ff69b4;
-  --background-overlay: rgba(0,0,0,0.2);
-  --text-color: #ffffff;
+  --bg-base: #07101f;
+  --bg-mid: #11263f;
+  --bg-accent: #1f4b6f;
+  --card-bg: rgba(255, 255, 255, 0.14);
+  --card-border: rgba(255, 255, 255, 0.28);
+  --text-color: #eff6ff;
+  --highlight: #facc15;
+  --accent: #38bdf8;
   --animation-speed: 1;
 }
 
@@ -14,13 +19,17 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+  color: var(--text-color);
+  background: radial-gradient(circle at 20% 10%, #224e72 0%, transparent 32%),
+    radial-gradient(circle at 80% 0%, #1f3a63 0%, transparent 28%),
+    linear-gradient(150deg, var(--bg-base) 0%, var(--bg-mid) 48%, var(--bg-accent) 100%);
   transition: background 0.3s, color 0.3s;
+  min-height: 100vh;
 }
 
 .App {
   min-height: 100vh;
-  background: var(--primary-gradient);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,14 +63,14 @@ body {
   width: min(980px, 100%);
   padding: 10px;
   border-radius: 14px;
-  background: rgba(0, 0, 0, 0.22);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(8px);
+  background: rgba(6, 17, 34, 0.42);
+  border: 1px solid rgba(186, 230, 253, 0.28);
+  backdrop-filter: blur(12px);
 }
 
 .menu-buttons button {
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(191, 219, 254, 0.34);
   color: white;
   font-size: 22px;
   width: 46px;
@@ -72,15 +81,16 @@ body {
 }
 
 .menu-buttons button:hover {
-  background: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.27);
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.36);
 }
 
 .app-header h1 {
+  font-family: 'Sora', 'Space Grotesk', sans-serif;
   color: white;
   font-size: clamp(2rem, 4vw, 3rem);
-  text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+  text-shadow: 0 8px 28px rgba(56, 189, 248, 0.35);
   margin-bottom: 0;
   line-height: 1.1;
 }
@@ -92,14 +102,16 @@ body {
   flex-wrap: wrap;
 }
 
-.coins, .jackpot {
+.coins,
+.jackpot {
   font-size: clamp(1rem, 2.2vw, 1.4rem);
-  color: var(--secondary-color);
+  color: var(--highlight);
   font-weight: bold;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-  background: var(--background-overlay);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(10px);
   padding: 10px 16px;
-  border-radius: 25px;
+  border-radius: 999px;
 }
 
 .prestige-badge {
@@ -108,18 +120,52 @@ body {
 }
 
 .menu-buttons .prestige-btn {
-  border: 2px solid rgba(255, 215, 0, 0.7);
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  border: 2px solid rgba(250, 204, 21, 0.76);
+  box-shadow: 0 0 10px rgba(250, 204, 21, 0.45);
 }
 
 .jackpot {
-  color: var(--accent-color);
+  color: #fda4af;
   animation: jackpot-pulse calc(2s / var(--animation-speed)) infinite;
 }
 
 @keyframes jackpot-pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  width: min(900px, 100%);
+  border-radius: 18px;
+  border: 1px solid rgba(191, 219, 254, 0.28);
+  background: linear-gradient(145deg, rgba(8, 25, 47, 0.85), rgba(17, 56, 86, 0.72));
+  backdrop-filter: blur(14px);
+  color: #e2e8f0;
+  box-shadow: 0 18px 42px rgba(2, 6, 23, 0.52);
+  padding: 24px;
+}
+
+.close-btn {
+  border: 1px solid rgba(253, 164, 175, 0.42);
+  background: rgba(127, 29, 29, 0.65);
+  color: #fecdd3;
 }
 
 @media (max-width: 600px) {
@@ -152,16 +198,14 @@ body {
   }
 }
 
-/* Dark Mode */
 .dark-mode {
-  filter: brightness(0.85);
+  filter: brightness(0.88);
 }
 
 .dark-mode .App {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: transparent;
 }
 
-/* Colorblind Modes */
 .cb-protanopia {
   filter: url(#protanopia);
 }
@@ -174,8 +218,7 @@ body {
   filter: url(#tritanopia);
 }
 
-/* Keyboard Navigation */
 button:focus-visible {
-  outline: 3px solid var(--secondary-color);
+  outline: 3px solid var(--highlight);
   outline-offset: 2px;
 }

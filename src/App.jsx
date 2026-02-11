@@ -35,6 +35,7 @@ import { AccessibilityService } from './services/accessibilityService';
 import { OnboardingService } from './services/onboardingService';
 import { BattlePassService } from './services/battlePassService';
 import { PrestigeService } from './services/prestigeService';
+import { HapticsService } from './services/hapticsService';
 import { Storage } from './utils/storage';
 import { BET_LEVELS, JACKPOT_CONTRIBUTION } from './utils/gameConfig';
 import './App.css';
@@ -311,6 +312,10 @@ function App() {
 
   const betAmount = BET_LEVELS[selectedBet].amount;
   const betMultiplier = BET_LEVELS[selectedBet].multiplier;
+  const openPanel = (setter) => {
+    HapticsService.menuNavigate();
+    setter(true);
+  };
 
   return (
     <div className="App">
@@ -332,23 +337,23 @@ function App() {
         </div>
         <nav className="menu-buttons" aria-label="Game panels">
           <Tooltip feature="shop" message="Buy coins and boosters here!" position="bottom">
-            <button onClick={() => setShowShop(true)} aria-label="Shop">🛒</button>
+            <button onClick={() => openPanel(setShowShop)} aria-label="Shop">🛒</button>
           </Tooltip>
           <Tooltip feature="achievements" message="Unlock badges to earn bonus coins!" position="bottom">
-            <button onClick={() => setShowAchievements(true)} aria-label="Achievements">🏆</button>
+            <button onClick={() => openPanel(setShowAchievements)} aria-label="Achievements">🏆</button>
           </Tooltip>
-          <button onClick={() => setShowLeaderboard(true)} aria-label="Leaderboard">📊</button>
-          <button onClick={() => setShowSocial(true)} aria-label="Social">👥</button>
-          <button onClick={() => setShowTournament(true)} aria-label="Tournament">🎯</button>
-          <button onClick={() => setShowGuild(true)} aria-label="Guild">🛡️</button>
-          <button onClick={() => setShowMachines(true)} aria-label="Machines">🎰</button>
-          <button onClick={() => setShowMiniGames(true)} aria-label="Mini Games">🎮</button>
-          <button onClick={() => setShowStoryMode(true)} aria-label="Story Mode">📖</button>
-          <button onClick={() => setShowBattlePass(true)} aria-label="Battle Pass">🎖️</button>
+          <button onClick={() => openPanel(setShowLeaderboard)} aria-label="Leaderboard">📊</button>
+          <button onClick={() => openPanel(setShowSocial)} aria-label="Social">👥</button>
+          <button onClick={() => openPanel(setShowTournament)} aria-label="Tournament">🎯</button>
+          <button onClick={() => openPanel(setShowGuild)} aria-label="Guild">🛡️</button>
+          <button onClick={() => openPanel(setShowMachines)} aria-label="Machines">🎰</button>
+          <button onClick={() => openPanel(setShowMiniGames)} aria-label="Mini Games">🎮</button>
+          <button onClick={() => openPanel(setShowStoryMode)} aria-label="Story Mode">📖</button>
+          <button onClick={() => openPanel(setShowBattlePass)} aria-label="Battle Pass">🎖️</button>
           {level >= PrestigeService.getMaxLevel() && (
             <button onClick={handlePrestige} aria-label="Prestige" className="prestige-btn">⭐</button>
           )}
-          <button onClick={() => setShowSettings(true)} aria-label="Settings">⚙️</button>
+          <button onClick={() => openPanel(setShowSettings)} aria-label="Settings">⚙️</button>
         </nav>
       </header>
       <LevelDisplay level={level} xp={xp} xpForNext={LevelService.xpForLevel(level)} />

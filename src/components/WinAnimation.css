@@ -1,36 +1,37 @@
 .win-animation {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   pointer-events: none;
   overflow: hidden;
+  z-index: 5;
 }
 
-.particle {
+.confetti-burst {
   position: absolute;
-  top: -20px;
-  font-size: 2em;
-  animation: fall 2s ease-in forwards;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.jackpot .particle {
-  font-size: 3em;
-  animation: fall-spin 2s ease-in forwards;
+.confetti-burst.center {
+  top: 36%;
 }
 
-@keyframes fall {
-  to {
-    top: 100%;
-    opacity: 0;
-  }
+.confetti-burst.side {
+  top: 50%;
+  left: 30%;
 }
 
-@keyframes fall-spin {
-  to {
-    top: 100%;
-    opacity: 0;
-    transform: rotate(360deg);
-  }
+.win-pill {
+  position: absolute;
+  left: 50%;
+  top: 22%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(250, 204, 21, 0.65);
+  color: #fde68a;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  box-shadow: 0 0 16px rgba(250, 204, 21, 0.45);
 }

@@ -1,40 +1,41 @@
 import React, { useEffect, useState } from 'react';
+import ConfettiExplosion from 'react-confetti-explosion';
 import './WinAnimation.css';
 
 function WinAnimation({ amount, isJackpot, onComplete }) {
-  const [particles, setParticles] = useState([]);
+  const [isExploding, setIsExploding] = useState(false);
 
   useEffect(() => {
-    if (amount > 0) {
-      const particleCount = isJackpot ? 50 : Math.min(amount / 10, 30);
-      const newParticles = Array.from({ length: particleCount }, (_, i) => ({
-        id: i,
-        left: Math.random() * 100,
-        delay: Math.random() * 0.5
-      }));
-      setParticles(newParticles);
+    if (amount <= 0) return undefined;
 
-      const timer = setTimeout(() => {
-        onComplete?.();
-      }, 2000);
+    setIsExploding(true);
+    const timer = setTimeout(() => {
+      setIsExploding(false);
+      onComplete?.();
+    }, isJackpot ? 2300 : 1800);
 
-      return () => clearTimeout(timer);
-    }
+    return () => clearTimeout(timer);
   }, [amount, isJackpot, onComplete]);
 
-  if (amount === 0) return null;
+  if (amount === 0 || !isExploding) return null;
 
   return (
     <div className={`win-animation ${isJackpot ? 'jackpot' : ''}`}>
-      {particles.map(p => (
-        <div
-          key={p.id}
-          className="particle"
-          style={{ left: `${p.left}%`, animationDelay: `${p.delay}s` }}
-        >
-          {isJackpot ? '💎' : '✨'}
+      <div className="confetti-burst center">
+        <ConfettiExplosion
+          force={isJackpot ? 0.95 : 0.62}
+          duration={isJackpot ? 2200 : 1500}
+          particleCount={isJackpot ? 220 : 140}
+          width={1700}
+          zIndex={1000}
+        />
+      </div>
+      {isJackpot && (
+        <div className="confetti-burst side">
+          <ConfettiExplosion force={0.68} duration={2100} particleCount={120} width={1200} zIndex={1000} />
         </div>
-      ))}
+      )}
+      <div className="win-pill">+{amount}</div>
     </div>
   );
 }

@@ -5,10 +5,10 @@
 
 .bet-selector label {
   display: block;
-  color: white;
-  font-size: 1.2em;
+  color: #dbeafe;
+  font-size: 1.15em;
   margin-bottom: 10px;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .bet-options {
@@ -19,24 +19,19 @@
 }
 
 .bet-option {
-  background: rgba(255, 255, 255, 0.9);
-  border: 3px solid transparent;
+  background: rgba(255, 255, 255, 0.13);
+  border: 1px solid rgba(186, 230, 253, 0.34);
+  color: #f8fafc;
   border-radius: 12px;
   padding: 10px 15px;
   cursor: pointer;
-  transition: all 0.3s;
-  min-width: 80px;
-}
-
-.bet-option:hover:not(:disabled) {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  min-width: 84px;
+  backdrop-filter: blur(8px);
 }
 
 .bet-option.active {
-  border-color: #f5576c;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  color: white;
+  border-color: rgba(250, 204, 21, 0.9);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.48), rgba(217, 70, 239, 0.35));
 }
 
 .bet-option:disabled {
@@ -45,8 +40,8 @@
 }
 
 .bet-amount {
-  font-size: 1.3em;
-  font-weight: bold;
+  font-size: 1.22em;
+  font-weight: 700;
 }
 
 .bet-label {
@@ -56,10 +51,10 @@
 
 .bet-multiplier {
   font-size: 0.9em;
-  color: #667eea;
-  font-weight: bold;
+  color: #7dd3fc;
+  font-weight: 700;
 }
 
 .bet-option.active .bet-multiplier {
-  color: #ffd700;
+  color: #fde68a;
 }

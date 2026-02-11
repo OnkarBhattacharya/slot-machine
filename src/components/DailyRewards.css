@@ -1,37 +1,33 @@
 .daily-rewards {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(155deg, rgba(14, 38, 66, 0.72), rgba(19, 62, 95, 0.55));
+  border: 1px solid rgba(186, 230, 253, 0.28);
   padding: 15px;
-  border-radius: 10px;
+  border-radius: 14px;
   margin: 10px 0;
   text-align: center;
+  backdrop-filter: blur(10px);
 }
 
 .streak {
-  color: white;
+  color: #e2e8f0;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 700;
   margin-bottom: 10px;
 }
 
 .claim-btn {
-  background: #ffd700;
-  color: #333;
+  background: linear-gradient(140deg, #facc15, #f97316);
+  color: #082f49;
   border: none;
   padding: 12px 24px;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s;
-}
-
-.claim-btn:hover:not(:disabled) {
-  transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
 }
 
 .claim-btn:disabled {
-  background: #666;
-  color: #999;
+  background: rgba(71, 85, 105, 0.8);
+  color: #94a3b8;
   cursor: not-allowed;
 }

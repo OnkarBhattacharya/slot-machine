@@ -1,6 +1,24 @@
 import React, { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { LeaderboardService } from '../services/leaderboardService';
+import { HapticsService } from '../services/hapticsService';
 import './Leaderboard.css';
+
+const listContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.055,
+      delayChildren: 0.08
+    }
+  }
+};
+
+const listItemVariants = {
+  hidden: { opacity: 0, x: -14 },
+  visible: { opacity: 1, x: 0 }
+};
 
 const Leaderboard = ({ allTime, coins, currentRank, onClose }) => {
   const [tab, setTab] = useState('allTime');
@@ -22,20 +40,37 @@ const Leaderboard = ({ allTime, coins, currentRank, onClose }) => {
     return `${days}d ${hours}h`;
   };
 
-  const rankToShow = tab === 'season'
-    ? LeaderboardService.getSeasonRank(coins)
-    : tab === 'friends'
-      ? friendBoard.findIndex(entry => entry.id === 'player') + 1
-      : currentRank;
+  const rankToShow =
+    tab === 'season'
+      ? LeaderboardService.getSeasonRank(coins)
+      : tab === 'friends'
+        ? friendBoard.findIndex((entry) => entry.id === 'player') + 1
+        : currentRank;
+
+  const switchTab = (nextTab) => {
+    setTab(nextTab);
+    HapticsService.menuNavigate();
+  };
 
   return (
     <div className="leaderboard-modal">
-      <div className="leaderboard-content">
+      <motion.div
+        className="leaderboard-content"
+        initial={{ opacity: 0, scale: 0.96, y: 14 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.22 }}
+      >
         <h2>Leaderboard</h2>
         <div className="tabs">
-          <button className={tab === 'allTime' ? 'active' : ''} onClick={() => setTab('allTime')}>All Time</button>
-          <button className={tab === 'friends' ? 'active' : ''} onClick={() => setTab('friends')}>Friends</button>
-          <button className={tab === 'season' ? 'active' : ''} onClick={() => setTab('season')}>Season</button>
+          <motion.button className={tab === 'allTime' ? 'active' : ''} onClick={() => switchTab('allTime')} whileTap={{ scale: 0.98 }}>
+            All Time
+          </motion.button>
+          <motion.button className={tab === 'friends' ? 'active' : ''} onClick={() => switchTab('friends')} whileTap={{ scale: 0.98 }}>
+            Friends
+          </motion.button>
+          <motion.button className={tab === 'season' ? 'active' : ''} onClick={() => switchTab('season')} whileTap={{ scale: 0.98 }}>
+            Season
+          </motion.button>
         </div>
         {tab === 'season' && seasonInfo && (
           <div className="season-info">
@@ -44,20 +79,30 @@ const Leaderboard = ({ allTime, coins, currentRank, onClose }) => {
           </div>
         )}
         <div className="rank-list">
-          {data.map((entry, i) => (
-            <div key={entry.id || i} className="rank-item">
-              <span className="rank-pos">{i + 1}</span>
-              {entry.name && <span className="rank-name">{entry.name}</span>}
-              <span className="rank-coins">{entry.coins}</span>
-            </div>
-          ))}
-          {data.length === 0 && (
-            <div className="empty-state">No entries yet.</div>
-          )}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={tab}
+              variants={listContainerVariants}
+              initial="hidden"
+              animate="visible"
+              exit={{ opacity: 0 }}
+            >
+              {data.map((entry, i) => (
+                <motion.div key={entry.id || i} className="rank-item" variants={listItemVariants}>
+                  <span className="rank-pos">{i + 1}</span>
+                  {entry.name && <span className="rank-name">{entry.name}</span>}
+                  <span className="rank-coins">{entry.coins}</span>
+                </motion.div>
+              ))}
+              {data.length === 0 && <div className="empty-state">No entries yet.</div>}
+            </motion.div>
+          </AnimatePresence>
         </div>
         <div className="current-rank">Your Rank: #{rankToShow > 0 ? rankToShow : '-'}</div>
-        <button onClick={onClose} className="close-btn">Close</button>
-      </div>
+        <motion.button onClick={onClose} className="close-btn" whileTap={{ scale: 0.985 }}>
+          Close
+        </motion.button>
+      </motion.div>
     </div>
   );
 };

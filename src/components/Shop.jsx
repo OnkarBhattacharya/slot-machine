@@ -1,5 +1,8 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import './Shop.css';
+
+const itemTransition = { type: 'spring', stiffness: 380, damping: 20 };
 
 function Shop({ onClose, onPurchase, onSubscribe }) {
   const coinPacks = [
@@ -16,47 +19,63 @@ function Shop({ onClose, onPurchase, onSubscribe }) {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content shop" onClick={e => e.stopPropagation()}>
-        <h2>🛒 Shop</h2>
-        
+      <motion.div
+        className="modal-content shop"
+        onClick={(e) => e.stopPropagation()}
+        initial={{ opacity: 0, y: 18, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.24 }}
+      >
+        <h2>Shop</h2>
+
         <section>
-          <h3>💰 Coin Packs</h3>
+          <h3>Coin Packs</h3>
           <div className="shop-grid">
-            {coinPacks.map(pack => (
-              <div key={pack.id} className="shop-item">
-                <div className="item-amount">{pack.amount} 💰</div>
+            {coinPacks.map((pack) => (
+              <motion.div key={pack.id} className="shop-item" whileHover={{ y: -3 }} transition={itemTransition}>
+                <div className="item-amount">{pack.amount} Coins</div>
                 <div className="item-price">{pack.price}</div>
-                <button onClick={() => onPurchase(pack)}>Buy</button>
-              </div>
+                <motion.button onClick={() => onPurchase(pack)} whileTap={{ scale: 0.96 }} transition={itemTransition}>
+                  Buy
+                </motion.button>
+              </motion.div>
             ))}
           </div>
         </section>
 
         <section>
-          <h3>⚡ Boosters</h3>
+          <h3>Boosters</h3>
           <div className="shop-grid">
-            {boosters.map(booster => (
-              <div key={booster.id} className="shop-item">
-                <div className="item-amount">{booster.multiplier}x for {booster.duration}min</div>
+            {boosters.map((booster) => (
+              <motion.div key={booster.id} className="shop-item" whileHover={{ y: -3 }} transition={itemTransition}>
+                <div className="item-amount">
+                  {booster.multiplier}x for {booster.duration}min
+                </div>
                 <div className="item-price">{booster.price}</div>
-                <button onClick={() => onPurchase(booster)}>Buy</button>
-              </div>
+                <motion.button onClick={() => onPurchase(booster)} whileTap={{ scale: 0.96 }} transition={itemTransition}>
+                  Buy
+                </motion.button>
+              </motion.div>
             ))}
           </div>
         </section>
 
         <section>
-          <h3>👑 VIP Subscription</h3>
+          <h3>VIP Subscription</h3>
           <div className="vip-card">
-            <p>✨ Daily bonus coins</p>
-            <p>🚫 No ads</p>
-            <p>📈 Better odds</p>
-            <button onClick={() => onSubscribe('vip')}>Subscribe $4.99/month</button>
+            <p>Daily bonus coins</p>
+            <p>No ads</p>
+            <p>Better odds</p>
+            <motion.button onClick={() => onSubscribe('vip')} whileTap={{ scale: 0.97 }} transition={itemTransition}>
+              Subscribe $4.99/month
+            </motion.button>
           </div>
         </section>
 
-        <button className="close-btn" onClick={onClose}>Close</button>
-      </div>
+        <motion.button className="close-btn" onClick={onClose} whileTap={{ scale: 0.98 }}>
+          Close
+        </motion.button>
+      </motion.div>
     </div>
   );
 }

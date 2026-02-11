@@ -19,37 +19,38 @@
 }
 
 .shop-item {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(150deg, rgba(21, 54, 89, 0.72), rgba(31, 87, 124, 0.6));
   border-radius: 10px;
   padding: 20px;
   text-align: center;
+  border: 1px solid rgba(186, 230, 253, 0.28);
 }
 
 .item-amount {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 1.2rem;
+  font-weight: 700;
   margin-bottom: 10px;
 }
 
 .item-price {
-  color: #ffd700;
-  font-size: 18px;
+  color: #fde68a;
+  font-size: 1.12rem;
   margin-bottom: 15px;
 }
 
 .shop-item button {
   padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background: #4CAF50;
+  border: 1px solid rgba(191, 219, 254, 0.38);
+  border-radius: 8px;
+  background: rgba(34, 197, 94, 0.85);
   color: white;
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
 }
 
 .vip-card {
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-  color: #333;
+  background: linear-gradient(150deg, rgba(250, 204, 21, 0.92), rgba(245, 158, 11, 0.9));
+  color: #422006;
   border-radius: 15px;
   padding: 30px;
   text-align: center;
@@ -65,9 +66,9 @@
   padding: 15px 30px;
   border: none;
   border-radius: 10px;
-  background: #4CAF50;
+  background: rgba(21, 128, 61, 0.92);
   color: white;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
 }

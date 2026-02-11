@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import './Controls.css';
 
 function Controls({ coins, betAmount, isSpinning, onSpin, onWatchAd, onPurchase, freeSpins }) {
@@ -15,34 +16,66 @@ function Controls({ coins, betAmount, isSpinning, onSpin, onWatchAd, onPurchase,
 
   return (
     <div className="controls">
-      <button 
-        className="spin-btn" 
+      <motion.button
+        className="spin-btn"
         onClick={onSpin}
         disabled={(coins < betAmount && freeSpins === 0) || isSpinning}
+        whileHover={!isSpinning ? { scale: 1.03 } : undefined}
+        whileTap={!isSpinning ? { scale: 0.95 } : undefined}
+        transition={{ type: 'spring', stiffness: 500, damping: 16 }}
       >
         {isSpinning ? 'SPINNING...' : spinText}
-      </button>
-      
+      </motion.button>
+
       <div className="actions">
-        <button className="ad-btn" onClick={onWatchAd} disabled={isSpinning}>
-          📺 Watch Ad (+100 coins)
-        </button>
-        <button className="shop-btn" onClick={() => setShowShop(!showShop)}>
-          🛒 Shop
-        </button>
+        <motion.button
+          className="ad-btn"
+          onClick={onWatchAd}
+          disabled={isSpinning}
+          whileHover={!isSpinning ? { y: -2 } : undefined}
+          whileTap={!isSpinning ? { scale: 0.95 } : undefined}
+          transition={{ type: 'spring', stiffness: 460, damping: 18 }}
+        >
+          Watch Ad (+100 coins)
+        </motion.button>
+        <motion.button
+          className="shop-btn"
+          onClick={() => setShowShop(!showShop)}
+          whileHover={{ y: -2 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: 'spring', stiffness: 460, damping: 18 }}
+        >
+          Shop
+        </motion.button>
       </div>
 
-      {showShop && (
-        <div className="shop">
-          <h3>Buy Coins</h3>
-          {packages.map((pkg, i) => (
-            <button key={i} onClick={() => onPurchase(pkg.coins)}>
-              {pkg.coins} coins - {pkg.price}
-            </button>
-          ))}
-          <button onClick={() => setShowShop(false)}>Close</button>
-        </div>
-      )}
+      <AnimatePresence>
+        {showShop && (
+          <motion.div
+            className="shop"
+            initial={{ opacity: 0, y: 12, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.98 }}
+            transition={{ duration: 0.22 }}
+          >
+            <h3>Buy Coins</h3>
+            {packages.map((pkg, i) => (
+              <motion.button
+                key={i}
+                onClick={() => onPurchase(pkg.coins)}
+                whileHover={{ x: 2 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: 'spring', stiffness: 360, damping: 20 }}
+              >
+                {pkg.coins} coins - {pkg.price}
+              </motion.button>
+            ))}
+            <motion.button onClick={() => setShowShop(false)} whileTap={{ scale: 0.98 }}>
+              Close
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

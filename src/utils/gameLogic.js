@@ -1,9 +1,9 @@
-import { SYMBOLS, PAYOUTS, SYMBOL_WEIGHTS, JACKPOT_COMBO, FREE_SPIN_COMBO } from './gameConfig';
+import { SYMBOLS, PAYOUTS, SYMBOL_WEIGHTS, JACKPOT_COMBO, FREE_SPIN_COMBO, buildComboKey } from './gameConfig';
 
 export const getWeightedRandomSymbol = () => {
   const totalWeight = Object.values(SYMBOL_WEIGHTS).reduce((a, b) => a + b, 0);
   let random = Math.random() * totalWeight;
-  
+
   for (const [symbol, weight] of Object.entries(SYMBOL_WEIGHTS)) {
     random -= weight;
     if (random <= 0) return symbol;
@@ -13,10 +13,9 @@ export const getWeightedRandomSymbol = () => {
 
 export const calculateWin = (reels, betMultiplier, activeMultiplier = 1) => {
   const hasWild = reels.includes(SYMBOLS.WILD);
-  
-  // Check for exact matches
-  const combo = reels.join('');
-  if (PAYOUTS[combo]) {
+
+  const combo = buildComboKey(reels);
+  if (Object.prototype.hasOwnProperty.call(PAYOUTS, combo)) {
     return {
       payout: Math.floor(PAYOUTS[combo] * betMultiplier * activeMultiplier),
       isJackpot: combo === JACKPOT_COMBO,
@@ -24,19 +23,18 @@ export const calculateWin = (reels, betMultiplier, activeMultiplier = 1) => {
       combo
     };
   }
-  
-  // Handle wild substitution
+
   if (hasWild) {
-    const nonWildSymbols = reels.filter(s => s !== SYMBOLS.WILD);
+    const nonWildSymbols = reels.filter((s) => s !== SYMBOLS.WILD);
     if (nonWildSymbols.length === 0) {
       return { payout: Math.floor(1000 * betMultiplier * activeMultiplier), isJackpot: false, isFreeSpins: false };
     }
-    
+
     const firstSymbol = nonWildSymbols[0];
-    const allMatch = nonWildSymbols.every(s => s === firstSymbol);
-    
+    const allMatch = nonWildSymbols.every((s) => s === firstSymbol);
+
     if (allMatch) {
-      const wildCombo = `${firstSymbol}${firstSymbol}${firstSymbol}`;
+      const wildCombo = buildComboKey([firstSymbol, firstSymbol, firstSymbol]);
       const basePayout = PAYOUTS[wildCombo] || 50;
       return {
         payout: Math.floor(basePayout * betMultiplier * activeMultiplier),
@@ -46,7 +44,7 @@ export const calculateWin = (reels, betMultiplier, activeMultiplier = 1) => {
       };
     }
   }
-  
+
   return { payout: 0, isJackpot: false, isFreeSpins: false };
 };
 
