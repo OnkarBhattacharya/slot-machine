@@ -1,183 +1,241 @@
-# 🎰 Slot Machine Game
+# Slot Machine
 
-A feature-rich, cross-platform slot machine game built with React and Capacitor, featuring multiple themed machines, mini-games, and deep progression systems.
+Cross-platform slot machine game built with React and Capacitor for Web, Android, and iOS.
 
-## 🚀 Current Status: Phase 7 Complete ✅
-The project has successfully implemented core gameplay, engagement features, and monetization structures. 
+## Current State
 
-### ✅ Key Features
-- **Core Gameplay**: Smooth slot animations, coin-based economy, and responsive design for Web, Android, and iOS.
-- **Themed Machines**: 4 unique themes (Classic, Ocean, Vegas, Space) with unlock and upgrade systems (up to 5 levels, increasing payouts by 20%).
-- **Mini-Games**: Scratch Cards, Coin Flip (Double-or-Nothing), Wheel of Fortune, and Card Higher/Lower games.
-- **Progression Systems**:
-  - **Battle Pass**: 10-tier seasonal system with free and premium ($9.99) tracks.
-  - **Prestige System**: 10 levels of prestige (unlocks at level 100) with permanent XP and coin multipliers (up to 3.0x).
-  - **Story Mode**: 5 campaign levels with boss battles and progressive rewards.
-  - **Level/XP System**: Gain XP from every spin to unlock new features.
-- **Engagement & Monetization**:
-  - **Live Events**: Daily Happy Hour (1.5x rewards) and Weekend Bonuses (2x multipliers).
-  - **Near-Miss System**: Intelligent animation system to increase excitement on close losses.
-  - **Social**: Friend leaderboards, seasonal competitions (30-day), and guild/club functionality.
-  - **Ads/IAP**: Rewarded video ads (AdMob) and In-App Purchases (RevenueCat).
+- Core slot gameplay, economy, and progression loops are implemented.
+- Critical-path feature integrations are in place:
+  - Battle Pass integrated in app flow.
+  - Prestige integrated (level-gated reset + payout/XP multipliers).
+  - Near-miss detection with visual feedback integrated in slot spins.
+  - Leaderboards enhanced with all-time, friends, and seasonal views.
+- Data persistence is currently local-first (localStorage via storage utilities).
+- Backend/server validation is not yet implemented (planned).
+- Automated test suite is not yet implemented (planned).
 
-## 🟢 Strengths (The "Goods")
-- **Modular Architecture**: Clean separation of concerns with reusable utility functions.
-- **High Engagement**: Multiple retention loops (Story, Prestige, Battle Pass) significantly increase session length and D30 retention.
-- **Cross-Platform**: Unified codebase for web and mobile deployment.
+## Feature Matrix
 
-## 🔴 Critical Issues (The "Bads")
-- **State Management Fragmentation**: Current implementation uses fragmented state; needs migration to a unified store like **Zustand**.
-- **Security Vulnerabilities**: Lack of server-side validation makes local storage and win calculations susceptible to manipulation.
-- **Missing Backend Integration**: Leaderboards and sync features are currently local-only; requires a centralized API for real-time functionality.
-- **Testing Infrastructure**: Zero unit, integration, or E2E tests currently exist.
+### Core Gameplay
 
-## 📝 TODOs & Future Roadmap
-- [ ] **Backend Integration**: Implement Firebase or Node.js API for cloud saves and real-time leaderboards.
-- [ ] **Security**: Move win calculations and purchase validation to the server.
-- [ ] **State Management**: Refactor core state using Zustand for better maintainability.
-- [ ] **Testing**: Implement Jest (Unit) and Cypress (E2E) testing suites.
-- [ ] **Localization**: Add multi-language support (i18n).
-- [ ] **Customization**: Allow users to unlock and customize slot symbols and animated backgrounds.
-- [ ] **Social Enhancements**: Bracket-style tournaments and cooperative guild challenges.
+- Reel-based slot machine with weighted symbol logic.
+- Bet tiers with configurable multipliers.
+- Jackpot pool and free spins flow.
+- Win animation, sound, vibration, and near-miss effects.
 
-## 🛠 Setup & Deployment
-- **Install**: `npm install`
-- **Run Web**: `npm start`
-- **Mobile Build**: `npm run build && npm run sync`
-# 🎰 Slot Machine Game
+### Progression and Retention
 
-Cross-platform slot machine game for Web, Android, and iOS with monetization.
+- Level and XP system.
+- Battle Pass with seasonal tiers, free/premium reward tracks, and reward claiming.
+- Prestige system with permanent multipliers and badge display.
+- Achievements and daily rewards.
+- Story mode and mini-games.
 
-## Features
-- 🎮 Smooth slot machine animations
-- 💰 Coin-based economy
-- 📺 Rewarded video ads (AdMob)
-- 🛒 In-app purchases
-- 💾 Local storage for progress
-- 📱 Responsive design
+### Social and Competition
+
+- Leaderboards:
+  - All-time leaderboard.
+  - Friend leaderboard.
+  - Seasonal leaderboard with season timer and season rewards.
+- Social, guild, and tournament modules are present in app flow.
+
+### Monetization
+
+- Rewarded/interstitial/banner ad hooks via AdMob service.
+- Coin and bundle purchase hooks via RevenueCat purchase service.
+- Shop flow and VIP subscription hooks.
+
+## Architecture
+
+The app follows a modular client-side architecture:
+
+- `src/App.jsx`
+  - Orchestrates global game flow and screen/modals.
+  - Coordinates economy updates, progression, and service calls.
+- `src/components/`
+  - UI modules by feature (slot machine, leaderboard, shop, battle pass, guild, etc.).
+- `src/services/`
+  - Domain services for features and integrations (purchase, ad, leaderboard, prestige, battle pass, events, etc.).
+- `src/utils/`
+  - Shared logic and infrastructure (game logic/config, storage, near-miss utilities, offline/perf helpers, sound).
+- `src/hooks/`
+  - Feature hooks (`usePhase5` currently present).
+
+### Data Flow (Current)
+
+1. UI actions in components trigger handlers in `App.jsx`.
+2. `App.jsx` calls feature services and utility logic.
+3. Most state is stored in React state and persisted with `Storage`.
+4. Leaderboard/purchase online methods exist as stubs/hooks, but authoritative backend validation is still pending.
+
+## Project Structure
+
+```text
+src/
+  components/        # Feature UI components
+  services/          # Business logic and integration services
+  utils/             # Shared utilities and game logic
+  hooks/             # React hooks
+  App.jsx            # Main application container
+  App.css            # Global app styles
+```
+
+## Tech Stack
+
+- React 18
+- react-scripts 5 (Create React App build pipeline)
+- Capacitor 5
+- `@capacitor-community/admob` (ad integration)
+- `@revenuecat/purchases-capacitor` (IAP integration)
+
+## Prerequisites
+
+- Node.js 18+ (recommended)
+- npm 9+ (recommended)
+- For mobile:
+  - Android Studio (Android builds)
+  - Xcode (iOS builds, macOS only)
 
 ## Setup
 
-### 1. Install Dependencies
+### 1. Install dependencies
+
 ```bash
 npm install
-npm install @capacitor-community/admob
-npm install @revenuecat/purchases-capacitor
 ```
 
-### 2. Run Web Version
+### 2. Run locally (web)
+
 ```bash
 npm start
 ```
 
-### 3. Build for Mobile
+### 3. Build web bundle
 
-#### Initialize Capacitor
 ```bash
 npm run build
-npm run init:capacitor
-# Enter app name and ID when prompted
 ```
 
-#### Add Platforms
+## Available Scripts
+
+- `npm start`: Start development server.
+- `npm run build`: Create production web build.
+- `npm run init:capacitor`: Initialize Capacitor project.
+- `npm run add:android`: Add Android platform.
+- `npm run add:ios`: Add iOS platform.
+- `npm run sync`: Sync web assets/plugins to native projects.
+- `npm run open:android`: Open Android project in Android Studio.
+- `npm run open:ios`: Open iOS project in Xcode.
+
+## Environment and Configuration
+
+### API Endpoint
+
+`LeaderboardService` uses:
+
+- `REACT_APP_API_ENDPOINT` (optional)
+- Fallback default: `https://api.example.com`
+
+Set it in `.env` for real backend usage:
+
 ```bash
-npm run add:android
-npm run add:ios
+REACT_APP_API_ENDPOINT=https://your-api-domain.com
 ```
 
-#### Sync and Open
-```bash
-npm run sync
-npm run open:android  # For Android
-npm run open:ios      # For iOS
-```
+### RevenueCat
 
-## Monetization Setup
+Update API key placeholder in:
+
+- `src/services/purchaseService.js`
 
 ### AdMob
-1. Create account at https://admob.google.com
-2. Create app and ad units (Rewarded Video, Banner)
-3. Update `capacitor.config.json` with your App ID
-4. Update ad unit IDs in `src/services/adService.js`
 
-### In-App Purchases (RevenueCat)
-1. Create account at https://revenuecat.com
-2. Configure products in App Store Connect / Google Play Console
-3. Add products to RevenueCat dashboard
-4. Update API key in `src/services/purchaseService.js`
+Configure AdMob IDs in:
 
-### Product IDs
-- `coins_500` - 500 coins ($0.99)
-- `coins_1500` - 1500 coins ($2.99)
-- `coins_5000` - 5000 coins ($7.99)
-- `coins_15000` - 15000 coins ($19.99)
+- `src/services/adService.js`
+- Capacitor app config/native manifests as needed per platform
 
-## Game Mechanics
+## Build and Deployment
 
-### Symbols & Payouts
-- 💎💎💎 = 500 coins
-- 7️⃣7️⃣7️⃣ = 1000 coins
-- 🍒🍒🍒 = 100 coins
-- 🍋🍋🍋 = 80 coins
-- 🍊🍊🍊 = 80 coins
-- 🍇🍇🍇 = 80 coins
+## Web Deployment
 
-### Bet Amount
-- 10 coins per spin
+1. Build:
 
-### Free Coins
-- Watch ad: +100 coins
-- Starting balance: 1000 coins
-
-## Build for Production
-
-### Web
 ```bash
 npm run build
-# Deploy 'build' folder to hosting (Netlify, Vercel, etc.)
 ```
 
-### Android
-1. Open Android Studio: `npm run open:android`
-2. Update signing config in `android/app/build.gradle`
-3. Build > Generate Signed Bundle/APK
+2. Deploy `build/` to your host (Netlify, Vercel, Firebase Hosting, etc.).
 
-### iOS
-1. Open Xcode: `npm run open:ios`
-2. Configure signing & capabilities
-3. Product > Archive
+## Android Deployment
 
-## Configuration Files
+1. Build and sync:
 
-### Android Permissions (`android/app/src/main/AndroidManifest.xml`)
-```xml
-<uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
+```bash
+npm run build
+npm run sync
 ```
 
-### iOS Permissions (`ios/App/App/Info.plist`)
-```xml
-<key>NSUserTrackingUsageDescription</key>
-<string>We use tracking to show you personalized ads</string>
+2. Open Android project:
+
+```bash
+npm run open:android
 ```
 
-## Deployment
+3. Configure signing and generate AAB/APK in Android Studio.
 
-### Web Hosting
-- Netlify: Drag & drop 'build' folder
-- Vercel: Connect GitHub repo
-- Firebase Hosting: `firebase deploy`
+## iOS Deployment
 
-### App Stores
-- Google Play: Upload AAB file
-- Apple App Store: Upload via Xcode
+1. Build and sync:
 
-## Monetization Tips
-1. Show rewarded ads when coins < 50
-2. Offer daily login bonuses
-3. Add limited-time coin sale events
-4. Implement achievement system
-5. Add social sharing for bonus coins
+```bash
+npm run build
+npm run sync
+```
+
+2. Open iOS project:
+
+```bash
+npm run open:ios
+```
+
+3. Configure signing/capabilities and archive in Xcode.
+
+## Known Gaps / Risks
+
+- No server-authoritative spin or payout validation yet.
+- Purchase verification and anti-cheat hardening are incomplete.
+- No formal automated unit/integration/E2E test suite yet.
+- State is still largely component-driven; unified global state store is planned.
+
+## TODO Roadmap (Production Priority)
+
+1. Backend integration (Firebase or custom Node.js API).
+2. Security hardening:
+   - Server-side validation for spins/purchases.
+   - Request signing and rate limiting.
+   - Anti-cheat anomaly detection.
+3. Error boundary + robust service-level error handling.
+4. Testing infrastructure (unit/component/integration).
+5. State management consolidation (e.g., Zustand).
+6. Performance optimization and bundle tuning.
+7. Optional TypeScript migration.
+8. Long-tail features: offerwall, bracket tournaments, spectator mode, localization, deeper customization.
+
+See `ACTION_PLAN.md` for the detailed phased implementation plan.
+
+## Troubleshooting
+
+- If `react-scripts` is missing, run `npm install`.
+- If mobile plugin imports warn/fail, verify plugin versions are compatible with Capacitor 5.
+- If native builds fail after dependency changes, run:
+
+```bash
+npm run sync
+```
+
+and clean/rebuild in Android Studio/Xcode.
 
 ## License
-MIT
+
+MIT (if applicable for your distribution).
