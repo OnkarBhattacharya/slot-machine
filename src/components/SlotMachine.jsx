@@ -6,9 +6,10 @@ import { FREE_SPINS_AMOUNT, SYMBOLS, getSymbolLabel } from '../utils/gameConfig'
 import { SoundService } from '../utils/soundService';
 import { NearMissService } from '../utils/nearMissService';
 import { HapticsService } from '../services/hapticsService';
+import { SlotMachineService } from '../services/slotMachineService';
 import './SlotMachine.css';
 
-function SlotMachine({ isSpinning, onComplete, betMultiplier, jackpot, freeSpins, onFreeSpinsWon }) {
+function SlotMachine({ isSpinning, onComplete, betMultiplier, jackpot, freeSpins, onFreeSpinsWon, currentMachine }) {
   const [reels, setReels] = useState([SYMBOLS.CHERRY, SYMBOLS.CHERRY, SYMBOLS.CHERRY]);
   const [result, setResult] = useState('');
   const [multiplier, setMultiplier] = useState(1);
@@ -17,6 +18,9 @@ function SlotMachine({ isSpinning, onComplete, betMultiplier, jackpot, freeSpins
   const [isWinning, setIsWinning] = useState(false);
   const [nearMissData, setNearMissData] = useState(null);
   const [isShaking, setIsShaking] = useState(false);
+  const machineMeta = SlotMachineService.getMachine(currentMachine);
+  const machineConfig = SlotMachineService.getMachineConfig(currentMachine);
+  const machineUpgradeBonus = SlotMachineService.getUpgradeBonus(currentMachine);
 
   useEffect(() => {
     if (!isSpinning) return;
@@ -28,21 +32,34 @@ function SlotMachine({ isSpinning, onComplete, betMultiplier, jackpot, freeSpins
     setIsShaking(false);
     SoundService.playSpin();
 
-    const newMultiplier = getRandomMultiplier(0.15);
+    const newMultiplier = getRandomMultiplier(machineConfig.multiplierChance, machineConfig.multipliers);
     setMultiplier(newMultiplier);
 
     const duration = 2000;
     const interval = setInterval(() => {
-      setReels([getWeightedRandomSymbol(), getWeightedRandomSymbol(), getWeightedRandomSymbol()]);
+      setReels([
+        getWeightedRandomSymbol(machineConfig.symbolWeights),
+        getWeightedRandomSymbol(machineConfig.symbolWeights),
+        getWeightedRandomSymbol(machineConfig.symbolWeights)
+      ]);
     }, 90);
 
     const endTimer = setTimeout(async () => {
       clearInterval(interval);
-      const final = [getWeightedRandomSymbol(), getWeightedRandomSymbol(), getWeightedRandomSymbol()];
+      const final = [
+        getWeightedRandomSymbol(machineConfig.symbolWeights),
+        getWeightedRandomSymbol(machineConfig.symbolWeights),
+        getWeightedRandomSymbol(machineConfig.symbolWeights)
+      ];
       setReels(final);
       await HapticsService.reelStop();
 
-      const winResult = calculateWin(final, betMultiplier, newMultiplier);
+      const winResult = calculateWin(
+        final,
+        betMultiplier * machineUpgradeBonus,
+        newMultiplier,
+        machineConfig
+      );
 
       if (winResult.payout === 0 && !winResult.isFreeSpins) {
         const nearMiss = NearMissService.detectNearMiss(final);
@@ -67,10 +84,11 @@ function SlotMachine({ isSpinning, onComplete, betMultiplier, jackpot, freeSpins
       }
 
       if (winResult.isFreeSpins) {
-        setResult(`${FREE_SPINS_AMOUNT} FREE SPINS unlocked`);
+        const freeSpinsAmount = machineConfig.freeSpinsAmount || FREE_SPINS_AMOUNT;
+        setResult(`${freeSpinsAmount} FREE SPINS unlocked`);
         SoundService.playWin();
         await HapticsService.impact();
-        onFreeSpinsWon?.(FREE_SPINS_AMOUNT);
+        onFreeSpinsWon?.(freeSpinsAmount);
         onComplete({ payout: 0, isJackpot: false, jackpotWin: 0 });
       } else if (winResult.isJackpot) {
         const totalWin = winResult.payout + jackpot;
@@ -101,13 +119,29 @@ function SlotMachine({ isSpinning, onComplete, betMultiplier, jackpot, freeSpins
       clearInterval(interval);
       clearTimeout(endTimer);
     };
-  }, [isSpinning, onComplete, betMultiplier, jackpot, onFreeSpinsWon]);
+  }, [
+    isSpinning,
+    onComplete,
+    betMultiplier,
+    jackpot,
+    onFreeSpinsWon,
+    machineConfig,
+    machineUpgradeBonus
+  ]);
 
   return (
     <div
       className={`slot-machine ${isShaking ? 'shaking' : ''} ${nearMissData ? 'near-miss-glow' : ''}`}
       style={nearMissData ? { '--glow-color': NearMissService.getAnimationConfig(nearMissData)?.color || '#ffd700' } : undefined}
     >
+      <div className="machine-strip">
+        <div className="machine-strip-title">{machineMeta.name}</div>
+        <div className="machine-strip-meta">
+          <span>{machineMeta.volatility} Volatility</span>
+          <span>{machineMeta.baseRtp}% RTP</span>
+          <span>{Math.round((machineUpgradeBonus - 1) * 100)}% Upgrade Bonus</span>
+        </div>
+      </div>
       {freeSpins > 0 && <div className="free-spins-badge">{freeSpins} Free Spins</div>}
       {multiplier > 1 && isSpinning && <div className="multiplier-badge">{multiplier}x Multiplier</div>}
       <div className={`reels ${isWinning ? 'winning' : ''}`}>

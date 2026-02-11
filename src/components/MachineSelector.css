@@ -1,78 +1,135 @@
 .machine-selector {
-  max-width: 800px;
-  max-height: 80vh;
+  max-width: 980px;
+  max-height: 84vh;
   overflow-y: auto;
+}
+
+.machine-selector-subtitle {
+  margin-top: 6px;
+  color: #cbd5e1;
+  font-size: 0.95rem;
 }
 
 .machines-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
   margin: 20px 0;
 }
 
 .machine-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(160deg, rgba(15, 23, 42, 0.92), rgba(30, 64, 175, 0.58));
+  border: 1px solid rgba(148, 163, 184, 0.35);
   border-radius: 15px;
-  padding: 20px;
-  text-align: center;
-  transition: transform 0.3s;
+  padding: 16px;
+  text-align: left;
+  transition: transform 0.18s ease, border-color 0.18s ease;
 }
 
 .machine-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-2px);
+  border-color: rgba(186, 230, 253, 0.64);
 }
 
 .machine-card.locked {
-  background: #555;
-  opacity: 0.6;
+  background: rgba(51, 65, 85, 0.85);
+  opacity: 0.74;
 }
 
 .machine-card.selected {
-  border: 3px solid gold;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  border: 2px solid #facc15;
+  box-shadow: 0 0 16px rgba(250, 204, 21, 0.24);
+}
+
+.machine-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
 .machine-icon {
-  font-size: 60px;
-  margin-bottom: 10px;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #bae6fd;
+}
+
+.machine-status {
+  font-size: 0.75rem;
+  border: 1px solid rgba(186, 230, 253, 0.28);
+  border-radius: 999px;
+  padding: 3px 8px;
+  color: #e2e8f0;
 }
 
 .machine-card h3 {
-  margin: 10px 0;
-  font-size: 18px;
+  margin: 4px 0 6px;
+  font-size: 1rem;
+}
+
+.machine-description {
+  color: #cbd5e1;
+  font-size: 0.84rem;
+  line-height: 1.4;
+  min-height: 2.4em;
+}
+
+.machine-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.machine-tags span {
+  font-size: 0.72rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.42);
+  background: rgba(30, 41, 59, 0.65);
+  padding: 3px 7px;
 }
 
 .machine-level {
-  color: #ffd700;
-  font-weight: bold;
-  margin: 5px 0;
+  color: #f8fafc;
+  font-weight: 700;
+  margin: 10px 0 3px;
+  font-size: 0.84rem;
 }
 
 .machine-bonus {
-  color: #90EE90;
-  font-size: 14px;
-  margin: 5px 0;
+  color: #86efac;
+  font-size: 0.82rem;
+  margin: 4px 0 10px;
 }
 
 .machine-card button {
-  margin: 5px;
-  padding: 8px 16px;
+  width: 100%;
+  margin-top: 6px;
+  padding: 9px 12px;
   border: none;
-  border-radius: 5px;
-  background: #4CAF50;
+  border-radius: 8px;
   color: white;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 700;
+}
+
+.machine-card .play-btn {
+  background: linear-gradient(90deg, #0284c7, #2563eb);
+}
+
+.machine-card .upgrade-btn {
+  background: linear-gradient(90deg, #166534, #22c55e);
 }
 
 .machine-card button:disabled {
-  background: #888;
+  background: #64748b;
   cursor: not-allowed;
 }
 
 .unlock-req {
-  color: #ffeb3b;
-  font-size: 14px;
-  margin-top: 10px;
+  color: #fde68a;
+  font-size: 0.84rem;
+  margin-top: 12px;
 }

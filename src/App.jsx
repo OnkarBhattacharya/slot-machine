@@ -375,6 +375,7 @@ function App() {
         jackpot={jackpot}
         freeSpins={freeSpins}
         onFreeSpinsWon={handleFreeSpinsWon}
+        currentMachine={currentMachine}
       />
       <Controls 
         coins={coins}

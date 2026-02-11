@@ -1,25 +1,38 @@
-import { SYMBOLS, PAYOUTS, SYMBOL_WEIGHTS, JACKPOT_COMBO, FREE_SPIN_COMBO, buildComboKey } from './gameConfig';
+import {
+  SYMBOLS,
+  PAYOUTS,
+  SYMBOL_WEIGHTS,
+  JACKPOT_COMBO,
+  FREE_SPIN_COMBO,
+  buildComboKey,
+  getMachineGameConfig
+} from './gameConfig';
 
-export const getWeightedRandomSymbol = () => {
-  const totalWeight = Object.values(SYMBOL_WEIGHTS).reduce((a, b) => a + b, 0);
+export const getWeightedRandomSymbol = (weights = SYMBOL_WEIGHTS) => {
+  const totalWeight = Object.values(weights).reduce((a, b) => a + b, 0);
   let random = Math.random() * totalWeight;
 
-  for (const [symbol, weight] of Object.entries(SYMBOL_WEIGHTS)) {
+  for (const [symbol, weight] of Object.entries(weights)) {
     random -= weight;
     if (random <= 0) return symbol;
   }
   return SYMBOLS.CHERRY;
 };
 
-export const calculateWin = (reels, betMultiplier, activeMultiplier = 1) => {
+export const calculateWin = (reels, betMultiplier, activeMultiplier = 1, machineConfig = null) => {
+  const resolvedConfig =
+    machineConfig || getMachineGameConfig();
+  const payouts = resolvedConfig.payouts || PAYOUTS;
+  const jackpotCombo = resolvedConfig.jackpotCombo || JACKPOT_COMBO;
+  const freeSpinCombo = resolvedConfig.freeSpinCombo || FREE_SPIN_COMBO;
   const hasWild = reels.includes(SYMBOLS.WILD);
 
   const combo = buildComboKey(reels);
-  if (Object.prototype.hasOwnProperty.call(PAYOUTS, combo)) {
+  if (Object.prototype.hasOwnProperty.call(payouts, combo)) {
     return {
-      payout: Math.floor(PAYOUTS[combo] * betMultiplier * activeMultiplier),
-      isJackpot: combo === JACKPOT_COMBO,
-      isFreeSpins: combo === FREE_SPIN_COMBO,
+      payout: Math.floor(payouts[combo] * betMultiplier * activeMultiplier),
+      isJackpot: combo === jackpotCombo,
+      isFreeSpins: combo === freeSpinCombo,
       combo
     };
   }
@@ -35,7 +48,7 @@ export const calculateWin = (reels, betMultiplier, activeMultiplier = 1) => {
 
     if (allMatch) {
       const wildCombo = buildComboKey([firstSymbol, firstSymbol, firstSymbol]);
-      const basePayout = PAYOUTS[wildCombo] || 50;
+      const basePayout = payouts[wildCombo] || 50;
       return {
         payout: Math.floor(basePayout * betMultiplier * activeMultiplier),
         isJackpot: false,
@@ -48,9 +61,8 @@ export const calculateWin = (reels, betMultiplier, activeMultiplier = 1) => {
   return { payout: 0, isJackpot: false, isFreeSpins: false };
 };
 
-export const getRandomMultiplier = (chance = 0.1) => {
+export const getRandomMultiplier = (chance = 0.1, multipliers = [2, 3, 5]) => {
   if (Math.random() < chance) {
-    const multipliers = [2, 3, 5];
     return multipliers[Math.floor(Math.random() * multipliers.length)];
   }
   return 1;

@@ -10,6 +10,35 @@
   width: min(460px, 100%);
 }
 
+.machine-strip {
+  margin-bottom: 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.38);
+  background: rgba(15, 23, 42, 0.55);
+  padding: 10px 12px;
+}
+
+.machine-strip-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 6px;
+}
+
+.machine-strip-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.machine-strip-meta span {
+  font-size: 0.78rem;
+  color: #bfdbfe;
+  border: 1px solid rgba(186, 230, 253, 0.3);
+  border-radius: 999px;
+  padding: 4px 8px;
+}
+
 .slot-machine.shaking {
   animation: slot-shake 0.5s;
 }

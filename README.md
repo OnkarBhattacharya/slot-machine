@@ -19,9 +19,27 @@ Cross-platform slot machine game built with React and Capacitor for Web, Android
 ### Core Gameplay
 
 - Reel-based slot machine with weighted symbol logic.
+- Multi-game machine selection with distinct configs per machine.
 - Bet tiers with configurable multipliers.
 - Jackpot pool and free spins flow.
 - Win animation, sound, vibration, and near-miss effects.
+
+### Game Options (Machines)
+
+- Machines available:
+  - `classic` (unlock level 1)
+  - `egyptian` (unlock level 5)
+  - `ocean` (unlock level 10)
+  - `space` (unlock level 15)
+  - `neon` (unlock level 20)
+- Each machine has independent:
+  - Symbol weights.
+  - Payout table.
+  - Jackpot combo symbol.
+  - Free-spin reward amount.
+  - Multiplier chance/range.
+- Machine upgrades increase payout via upgrade bonus and are persisted in local storage.
+- Current selected machine is persisted and reused on next launch.
 
 ### Progression and Retention
 
@@ -55,9 +73,9 @@ The app follows a modular client-side architecture:
 - `src/components/`
   - UI modules by feature (slot machine, leaderboard, shop, battle pass, guild, etc.).
 - `src/services/`
-  - Domain services for features and integrations (purchase, ad, leaderboard, prestige, battle pass, events, etc.).
+  - Domain services for features and integrations (purchase, ad, leaderboard, prestige, battle pass, events, machine metadata/config access, etc.).
 - `src/utils/`
-  - Shared logic and infrastructure (game logic/config, storage, near-miss utilities, offline/perf helpers, sound).
+  - Shared logic and infrastructure (machine-specific game logic/config, storage, near-miss utilities, offline/perf helpers, sound).
 - `src/hooks/`
   - Feature hooks (`usePhase5` currently present).
 
@@ -79,6 +97,14 @@ src/
   App.jsx            # Main application container
   App.css            # Global app styles
 ```
+
+Key files for the machine system:
+
+- `src/components/MachineSelector.jsx`
+- `src/services/slotMachineService.js`
+- `src/utils/gameConfig.js`
+- `src/utils/gameLogic.js`
+- `src/components/SlotMachine.jsx`
 
 ## Tech Stack
 
