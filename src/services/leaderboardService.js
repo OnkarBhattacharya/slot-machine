@@ -1,4 +1,6 @@
 import { Storage } from '../utils/storage';
+import { BackendService } from './backendService';
+import { ErrorService } from './errorService';
 
 export const LeaderboardService = {
   apiEndpoint: process.env.REACT_APP_API_ENDPOINT || 'https://api.example.com',
@@ -13,26 +15,21 @@ export const LeaderboardService = {
 
   async submitScoreOnline(userId, coins) {
     try {
-      const response = await fetch(`${this.apiEndpoint}/leaderboard/submit`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId, coins, timestamp: Date.now() })
-      });
-      return response.ok;
+      const resolvedUserId = userId || (await BackendService.getUserId());
+      if (!resolvedUserId) return false;
+      return await BackendService.syncLeaderboardScore(coins);
     } catch (error) {
-      console.error('Failed to submit score online:', error);
+      ErrorService.log(error, 'leaderboard');
       return false;
     }
   },
 
   async fetchOnlineLeaderboard(period = 'all') {
     try {
-      const response = await fetch(`${this.apiEndpoint}/leaderboard/${period}`);
-      if (response.ok) {
-        return await response.json();
-      }
+      const normalizedLimit = period === 'season' ? 100 : 50;
+      return await BackendService.fetchLeaderboard(normalizedLimit);
     } catch (error) {
-      console.error('Failed to fetch online leaderboard:', error);
+      ErrorService.log(error, 'leaderboard');
     }
     return null;
   },

@@ -3,18 +3,19 @@ import { CloudSyncService } from '../services/cloudSyncService';
 import { AnalyticsService } from '../services/analyticsService';
 import { SecurityService } from '../services/securityService';
 import { OfflineService } from '../utils/offlineService';
-import { gameStore } from '../utils/stateStore';
+import { useGameStore } from '../store/gameStore';
 
 export const useGameState = () => {
-  const [state, setState] = useState(gameStore.getState());
-
-  useEffect(() => {
-    const unsubscribe = gameStore.subscribe(setState);
-    return unsubscribe;
-  }, []);
+  const state = useGameStore((current) => current);
 
   const updateState = useCallback((updates) => {
-    gameStore.setState(updates);
+    Object.entries(updates).forEach(([key, value]) => {
+      const setterName = `set${key.charAt(0).toUpperCase()}${key.slice(1)}`;
+      const store = useGameStore.getState();
+      if (typeof store[setterName] === 'function') {
+        store[setterName](value);
+      }
+    });
   }, []);
 
   return [state, updateState];

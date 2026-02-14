@@ -1,3 +1,6 @@
+import { BackendService } from './backendService';
+import { ErrorService } from './errorService';
+
 export const PurchaseService = {
   initialized: false,
 
@@ -19,16 +22,33 @@ export const PurchaseService = {
     try {
       if (!window.Capacitor) {
         const confirm = window.confirm(`Purchase ${amount} coins?`);
-        return confirm;
+        if (!confirm) return false;
+        const verification = await BackendService.verifyPurchase({
+          type: 'coins',
+          productId: `coins_${amount}`,
+          amount,
+          platform: 'web'
+        });
+        return verification?.verified !== false;
       }
 
       const { Purchases } = await import('@revenuecat/purchases-capacitor');
       const productId = `coins_${amount}`;
       
       const { customerInfo } = await Purchases.purchaseProduct({ product: productId });
-      return customerInfo.entitlements.active['coins'] !== undefined;
+      const hasEntitlement = customerInfo.entitlements.active['coins'] !== undefined;
+      if (!hasEntitlement) return false;
+
+      const verification = await BackendService.verifyPurchase({
+        type: 'coins',
+        productId,
+        amount,
+        platform: 'capacitor'
+      });
+      return verification?.verified !== false;
     } catch (error) {
-      console.error('Purchase error:', error);
+      ErrorService.log(error, 'purchase');
+      ErrorService.notifyUser(ErrorService.getUserMessage('purchase'), 'purchase');
       return false;
     }
   },
@@ -37,14 +57,28 @@ export const PurchaseService = {
     try {
       if (!window.Capacitor) {
         const confirm = window.confirm(`Purchase bundle ${bundleId}?`);
-        return confirm;
+        if (!confirm) return false;
+        const verification = await BackendService.verifyPurchase({
+          type: 'bundle',
+          productId: bundleId,
+          platform: 'web'
+        });
+        return verification?.verified !== false;
       }
 
       const { Purchases } = await import('@revenuecat/purchases-capacitor');
       const { customerInfo } = await Purchases.purchaseProduct({ product: bundleId });
-      return !!customerInfo;
+      if (!customerInfo) return false;
+
+      const verification = await BackendService.verifyPurchase({
+        type: 'bundle',
+        productId: bundleId,
+        platform: 'capacitor'
+      });
+      return verification?.verified !== false;
     } catch (error) {
-      console.error('Bundle purchase error:', error);
+      ErrorService.log(error, 'purchase');
+      ErrorService.notifyUser(ErrorService.getUserMessage('purchase'), 'purchase');
       return false;
     }
   },
@@ -56,7 +90,8 @@ export const PurchaseService = {
       const { Purchases } = await import('@revenuecat/purchases-capacitor');
       await Purchases.restorePurchases();
     } catch (error) {
-      console.error('Restore error:', error);
+      ErrorService.log(error, 'purchase');
+      ErrorService.notifyUser(ErrorService.getUserMessage('purchase'), 'purchase');
     }
   }
 };

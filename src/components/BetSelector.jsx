@@ -1,9 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { BET_LEVELS } from '../utils/gameConfig';
+import { useGameStore } from '../store/gameStore';
 import './BetSelector.css';
 
-function BetSelector({ selectedBet, onBetChange, coins }) {
+function BetSelector() {
+  const selectedBet = useGameStore((state) => state.selectedBet);
+  const onBetChange = useGameStore((state) => state.setSelectedBet);
+  const coins = useGameStore((state) => state.coins);
+
   return (
     <div className="bet-selector">
       <label>Bet Amount:</label>

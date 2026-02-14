@@ -1,7 +1,12 @@
 import React from 'react';
+import { LevelService } from '../services/levelService';
+import { useGameStore } from '../store/gameStore';
 import './LevelDisplay.css';
 
-const LevelDisplay = ({ level, xp, xpForNext }) => {
+const LevelDisplay = () => {
+  const level = useGameStore((state) => state.level);
+  const xp = useGameStore((state) => state.xp);
+  const xpForNext = LevelService.xpForLevel(level);
   const progress = (xp / xpForNext) * 100;
 
   return (

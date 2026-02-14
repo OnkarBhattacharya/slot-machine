@@ -6,16 +6,23 @@
     "@capacitor-community/admob": "^5.3.1",
     "@capacitor/haptics": "^5.0.8",
     "@revenuecat/purchases-capacitor": "^7.7.1",
+    "crypto-js": "^4.2.0",
+    "firebase": "^12.9.0",
     "framer-motion": "^12.34.0",
     "pixi-filters": "^6.1.5",
     "pixi.js": "^8.16.0",
     "react": "^18.2.0",
     "react-confetti-explosion": "^3.0.3",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "zustand": "^5.0.11"
   },
   "scripts": {
     "start": "react-scripts start",
+    "test": "react-scripts test",
+    "test:ci": "react-scripts test --watchAll=false",
+    "build:stats": "react-scripts build --stats",
+    "analyze:bundle": "webpack-bundle-analyzer build/bundle-stats.json -m static",
     "build": "react-scripts build",
     "init:capacitor": "npx cap init",
     "add:android": "npx cap add android",
@@ -28,7 +35,11 @@
     "@capacitor/android": "^5.5.0",
     "@capacitor/cli": "^5.5.0",
     "@capacitor/core": "^5.5.0",
-    "@capacitor/ios": "^5.5.0"
+    "@capacitor/ios": "^5.5.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "jest": "^27.5.1",
+    "webpack-bundle-analyzer": "^5.2.0"
   },
   "browserslist": {
     "production": [

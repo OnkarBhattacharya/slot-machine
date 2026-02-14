@@ -1,0 +1,43 @@
+.error-boundary {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: radial-gradient(circle at 15% 10%, #263d59 0%, transparent 30%),
+    linear-gradient(160deg, #091325 0%, #14273d 100%);
+  color: #e5edf7;
+}
+
+.error-boundary-card {
+  width: min(560px, 100%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 14px;
+  padding: 22px;
+  background: rgba(13, 25, 42, 0.88);
+  box-shadow: 0 16px 38px rgba(2, 6, 23, 0.42);
+}
+
+.error-boundary-card h1 {
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+}
+
+.error-boundary-card p {
+  opacity: 0.92;
+  margin-bottom: 16px;
+}
+
+.error-boundary-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.error-boundary-actions button {
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(59, 130, 246, 0.25);
+  color: #f8fafc;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}

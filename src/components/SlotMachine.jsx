@@ -78,7 +78,7 @@ function SlotMachine({ isSpinning, onComplete, betMultiplier, jackpot, freeSpins
             SoundService.vibrate(animConfig.vibration);
           }
 
-          onComplete({ payout: 0, isJackpot: false, jackpotWin: 0 });
+          onComplete({ payout: 0, isJackpot: false, jackpotWin: 0, reels: final, multiplier: newMultiplier, machineId: currentMachine });
           return;
         }
       }
@@ -89,7 +89,7 @@ function SlotMachine({ isSpinning, onComplete, betMultiplier, jackpot, freeSpins
         SoundService.playWin();
         await HapticsService.impact();
         onFreeSpinsWon?.(freeSpinsAmount);
-        onComplete({ payout: 0, isJackpot: false, jackpotWin: 0 });
+        onComplete({ payout: 0, isJackpot: false, jackpotWin: 0, reels: final, multiplier: newMultiplier, machineId: currentMachine });
       } else if (winResult.isJackpot) {
         const totalWin = winResult.payout + jackpot;
         setResult(`JACKPOT ${totalWin} COINS`);
@@ -98,7 +98,7 @@ function SlotMachine({ isSpinning, onComplete, betMultiplier, jackpot, freeSpins
         setIsWinning(true);
         SoundService.playJackpot();
         await HapticsService.bigWin();
-        onComplete({ payout: winResult.payout, isJackpot: true, jackpotWin: jackpot });
+        onComplete({ payout: winResult.payout, isJackpot: true, jackpotWin: jackpot, reels: final, multiplier: newMultiplier, machineId: currentMachine });
       } else if (winResult.payout > 0) {
         const multiplierText = newMultiplier > 1 ? ` (${newMultiplier}x)` : '';
         setResult(`WIN ${winResult.payout} COINS${multiplierText}`);
@@ -107,11 +107,11 @@ function SlotMachine({ isSpinning, onComplete, betMultiplier, jackpot, freeSpins
         setIsWinning(true);
         SoundService.playWin();
         await HapticsService.impact();
-        onComplete({ payout: winResult.payout, isJackpot: false, jackpotWin: 0 });
+        onComplete({ payout: winResult.payout, isJackpot: false, jackpotWin: 0, reels: final, multiplier: newMultiplier, machineId: currentMachine });
       } else {
         const labels = final.map((s) => getSymbolLabel(s));
         setResult(`No win (${labels.join(' / ')})`);
-        onComplete({ payout: 0, isJackpot: false, jackpotWin: 0 });
+        onComplete({ payout: 0, isJackpot: false, jackpotWin: 0, reels: final, multiplier: newMultiplier, machineId: currentMachine });
       }
     }, duration);
 

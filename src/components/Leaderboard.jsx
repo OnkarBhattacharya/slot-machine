@@ -22,17 +22,35 @@ const listItemVariants = {
 
 const Leaderboard = ({ allTime, coins, currentRank, onClose }) => {
   const [tab, setTab] = useState('allTime');
+  const [allTimeBoard, setAllTimeBoard] = useState(allTime || []);
   const [friendBoard, setFriendBoard] = useState([]);
   const [seasonBoard, setSeasonBoard] = useState([]);
   const [seasonInfo, setSeasonInfo] = useState(null);
 
   useEffect(() => {
+    let mounted = true;
+
+    const loadBoards = async () => {
+      const onlineBoard = await LeaderboardService.fetchOnlineLeaderboard('all');
+      if (mounted && Array.isArray(onlineBoard) && onlineBoard.length > 0) {
+        setAllTimeBoard(onlineBoard);
+      }
+    };
+
+    loadBoards();
     setFriendBoard(LeaderboardService.getFriendLeaderboard());
     setSeasonBoard(LeaderboardService.getSeasonLeaderboard());
     setSeasonInfo(LeaderboardService.getCurrentSeason());
+    return () => {
+      mounted = false;
+    };
   }, []);
 
-  const data = tab === 'allTime' ? allTime : tab === 'friends' ? friendBoard : seasonBoard;
+  useEffect(() => {
+    setAllTimeBoard(allTime || []);
+  }, [allTime]);
+
+  const data = tab === 'allTime' ? allTimeBoard : tab === 'friends' ? friendBoard : seasonBoard;
 
   const formatTime = (ms) => {
     const days = Math.floor(ms / (24 * 60 * 60 * 1000));

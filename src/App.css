@@ -38,6 +38,41 @@ body {
   gap: 14px;
 }
 
+.service-error-banner {
+  width: min(980px, 100%);
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  background: rgba(127, 29, 29, 0.86);
+  border: 1px solid rgba(254, 202, 202, 0.45);
+  color: #fee2e2;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.service-error-banner button {
+  border: 1px solid rgba(254, 202, 202, 0.5);
+  background: rgba(0, 0, 0, 0.18);
+  color: #fff1f2;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.panel-loading {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1100;
+  background: rgba(8, 18, 34, 0.9);
+  border: 1px solid rgba(191, 219, 254, 0.3);
+  border-radius: 10px;
+  padding: 8px 12px;
+  color: #dbeafe;
+  font-size: 0.9rem;
+}
+
 .app-header {
   text-align: center;
   width: min(1100px, 100%);

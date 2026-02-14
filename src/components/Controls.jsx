@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { BET_LEVELS } from '../utils/gameConfig';
+import { useGameStore } from '../store/gameStore';
 import './Controls.css';
 
-function Controls({ coins, betAmount, isSpinning, onSpin, onWatchAd, onPurchase, freeSpins }) {
+function Controls({ onSpin, onWatchAd, onPurchase }) {
   const [showShop, setShowShop] = useState(false);
+  const coins = useGameStore((state) => state.coins);
+  const selectedBet = useGameStore((state) => state.selectedBet);
+  const betAmount = BET_LEVELS[selectedBet].amount;
+  const isSpinning = useGameStore((state) => state.isSpinning);
+  const freeSpins = useGameStore((state) => state.freeSpins);
 
   const packages = [
     { coins: 500, price: '$0.99' },

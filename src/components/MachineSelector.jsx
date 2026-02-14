@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { SlotMachineService } from '../services/slotMachineService';
+import { useGameStore } from '../store/gameStore';
 import './MachineSelector.css';
 
-function MachineSelector({ onClose, currentMachine, playerLevel, coins, onSelect, onUpgrade }) {
+function MachineSelector({ onClose, onSelect, onUpgrade }) {
+  const currentMachine = useGameStore((state) => state.currentMachine);
+  const playerLevel = useGameStore((state) => state.level);
+  const coins = useGameStore((state) => state.coins);
   const machines = SlotMachineService.getMachines();
   const unlockedMachines = SlotMachineService.getUnlockedMachines(playerLevel);
   const [selectedMachine, setSelectedMachine] = useState(currentMachine);
