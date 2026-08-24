@@ -42,8 +42,8 @@ src/
 
 ### Data Flow
 1. **State Management**: Centralized using **Zustand** with persistence.
-2. **Cloud Sync**: Firebase Option A enables server-side spin validation (`validateSpin`) and purchase verification (`verifyPurchase`) when enabled.
-3. **Security**: Local data is hardened with **AES encryption** and **SHA-256 integrity hashes** via `SecurityService`.
+2. **Cloud Sync**: Firebase Option A enables server-side spin validation (`validateSpin`) and purchase verification (`verifyPurchase`) when enabled. Note: `validateSpin` currently only sanity-checks client-computed payouts (caps + anomaly logging) and falls back to accepting local results when the backend is unavailable — it is **advisory, not server-authoritative** (see Known Gaps).
+3. **Security**: Local data is hardened with AES encryption and SHA-256 integrity hashes via `SecurityService` (client-side obfuscation; not a substitute for server validation).
 
 ## 🛠️ Tech Stack
 - **Framework**: React 18
@@ -55,7 +55,7 @@ src/
 ## 🚦 Getting Started
 
 ### Prerequisites
-- Node.js 18+
+- Node.js 18+ for the web app; Node.js 20 for Cloud Functions (`functions/engines`)
 - npm 9+
 - Android Studio / Xcode (for mobile builds)
 
@@ -97,6 +97,7 @@ The application includes local rate limiting (default 60 spins/min) and coin ano
 ## 🚧 Roadmap & Risks
 
 ### Known Gaps
+- Spin/purchase validation is advisory only; the economy is still client-authoritative (server does not compute outcomes or own balances).
 - Integration and E2E test coverage is pending.
 - Anti-cheat hardening is ongoing.
 - Performance validation on slow networks is in progress.

@@ -57,7 +57,13 @@ function PixiReel({ symbol, isSpinning, isWinning, highlight }) {
     if (!src) return;
 
     const requestId = ++textureRequestIdRef.current;
-    const texture = await Assets.load(src);
+    let texture;
+    try {
+      texture = await Assets.load(src);
+    } catch (error) {
+      console.error('Reel texture load failed:', error);
+      return;
+    }
 
     if (!mountedRef.current || requestId !== textureRequestIdRef.current) return;
     if (!spriteRef.current || spriteRef.current.destroyed) return;
@@ -179,7 +185,7 @@ function PixiReel({ symbol, isSpinning, isWinning, highlight }) {
     applyWinningFilters();
   }, [isWinning, highlight]);
 
-  return <div className="reel-pixi" ref={hostRef} aria-label={`Reel symbol: ${symbol}`} />;
+  return <div className="reel-pixi" ref={hostRef} role="img" aria-label={`Reel symbol: ${symbol}`} />;
 }
 
 export default PixiReel;
